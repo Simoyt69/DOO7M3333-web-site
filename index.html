@@ -8,12 +8,31 @@
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #1809a0, #a504e4, #0578cb);
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            background: linear-gradient(270deg,
+                    #4807e2,
+                    #0e0a87,
+                    #8505e0,
+                    #420092);
+            background-size: 600% 600%;
+            animation: bgMove 10s ease infinite;
+        }
+
+        @keyframes bgMove {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         .card {
@@ -60,6 +79,20 @@
         .link:hover {
             background: white;
         }
+
+        /* رسالة SOON */
+        #soon {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: crimson;
+            color: white;
+            padding: 15px;
+            font-size: 20px;
+            display: none;
+            /* مخفية */
+        }
     </style>
 </head>
 
@@ -104,6 +137,21 @@
             <img src="https://i.ytimg.com/vi/4NoACxllkxs/maxresdefault.jpg">
             top video in my channel
         </a>
+        <div id="soon">SOON</div>
+        <a class="img" href="javascript:void(0);">
+            <img src="mincraft logo.jpg" onclick="showSoon()" alt="Minecraft Logo"
+                style="width:36px; height:36px; margin-top:36px;">
+        </a>
+        <script>
+            function showSoon() {
+                const s = document.getElementById("soon");
+                s.style.display = "block";
+
+                setTimeout(() => {
+                    s.style.display = "none";
+                }, 3000);
+            }
+        </script>
 
     </div>
     <!-- نهاية البطاقة -->
@@ -111,3 +159,4 @@
 </body>
 
 </html>
+
