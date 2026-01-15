@@ -19,6 +19,7 @@
                     #420092);
             background-size: 600% 600%;
             animation: bgMove 10s ease infinite;
+            font-family: Arial, sans-serif;
         }
 
         @keyframes bgMove {
@@ -38,7 +39,21 @@
         .card {
             width: 360px;
             text-align: center;
+            position: relative;
+            /* مهم جدًا */
+            padding-top: 40px;
+            /* نفتح مساحة فوق */
         }
+
+
+        .banner {
+            width: 100%;
+            border-radius: 20px;
+            position: relative;
+            top: -80px;
+            /* هنا يتحرك فعليًا لفوق */
+        }
+
 
         .avatar {
             width: 120px;
@@ -46,29 +61,27 @@
             border-radius: 50%;
             border: 5px solid white;
             object-fit: cover;
+            margin-top: -60px;
+            background: #000;
         }
 
         h1 {
-            margin: 15px 0 10px;
-            color: #4b2a7a;
-        }
-
-        .social-icons img {
-            width: 24px;
-            margin: 0 8px;
+            margin: 15px 0;
+            color: white;
         }
 
         .link {
             display: flex;
             align-items: center;
             gap: 15px;
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.75);
             padding: 15px;
             border-radius: 30px;
             margin-top: 15px;
             text-decoration: none;
-            color: #4b2a7a;
+            color: #3b1366;
             font-size: 16px;
+            cursor: pointer;
         }
 
         .link img {
@@ -80,83 +93,212 @@
             background: white;
         }
 
-        /* رسالة SOON */
+        /* شريط SOON */
         #soon {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: crimson;
+            background: rgb(160, 20, 220);
             color: white;
             padding: 15px;
-            font-size: 20px;
+            font-size: 22px;
+            text-align: center;
             display: none;
-            /* مخفية */
+            z-index: 999;
+        }
+
+        /* لعبة Ping Pong */
+        #score,
+        #exitBtn,
+        #game {
+            display: none;
+            margin-top: 15px;
+        }
+
+        #exitBtn {
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+
+        canvas {
+            background: linear-gradient(270deg,
+                    #4807e2,
+                    #0e0a87,
+                    #8505e0,
+                    #420092);
+            animation: bgMove 10s ease infinite;
+            border: 2px solid rgb(157, 4, 228);
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto;
         }
     </style>
 </head>
 
 <body>
-    <!-- بداية البطاقة -->
+
+    <div id="soon">SOON</div>
 
     <div class="card">
-        <!--بنر-->
-        <img src="doo7m333baner.jpg" style="width:100%; position:absolute; top:0; left:0; z-index:-1;">
-        <!-- الصورة -->
 
-        <img src="doo7m333profl.jpg" alt="Avatar" class="avatar">
+        <!-- البنر -->
+        <img src="doo7m333baner.jpg" class="banner">
 
-        <!-- الاسم -->
+        <!-- الصورة الشخصية -->
+        <img src="doo7m333profl.jpg" class="avatar">
+
         <h1>Doo7m333</h1>
 
-        <!-- أيقونات -->
-        <div class="social-icons">
-
-            <img src="images.jpg">
-            <img src="discod.png">
-            <img src="youtube.png">
-
-        </div>
-
-        <!-- الروابط -->
+        <!-- روابط حقيقية -->
         <a class="link" href="https://youtube.com/@doo7m333?si=XjFfSD3-KDVBLUIg" target="_blank">
             <img src="youtube.png">
             قناتي على يوتيوب
         </a>
+        <audio id="sound" src="mixkit-fast-double-click-on-mouse-275.wav"></audio>
 
         <a class="link" href="https://discord.gg/fFKn2kWv34" target="_blank">
             <img src="discod.png">
-            سيرفري الديسكورد
+            سيرفر الديسكورد
         </a>
+        <audio id="sound" src="mixkit-fast-double-click-on-mouse-275.wav"></audio>
 
-        <a class="link" href="https://www.instagram.com/doo7m333/?utm_source=ig_web_button_share_sheet" target="_blank">
+        <a class="link" href="https://www.instagram.com/doo7m333/" target="_blank">
             <img src="images.jpg">
             حسابي إنستغرام
         </a>
-        <a class="link" href="https://youtu.be/4NoACxllkxs?si=C5-0pfrF7Uv0oi71" target="_blank">
-            <img src="https://i.ytimg.com/vi/4NoACxllkxs/maxresdefault.jpg">
-            top video in my channel
+        <audio id="sound" src="mixkit-fast-double-click-on-mouse-275.wav"></audio>
+
+        <a class="link" href="https://youtu.be/4NoACxllkxs" target="_blank">
+            <img src="youtube.png">
+            Top video in my channel
         </a>
-        <div id="soon">SOON</div>
-        <a class="img" href="javascript:void(0);">
-            <img src="mincraft logo.jpg" onclick="showSoon()" alt="Minecraft Logo"
-                style="width:36px; height:36px; margin-top:36px;">
-        </a>
+        <audio id="sound" src="mixkit-fast-double-click-on-mouse-275.wav"></audio>
+
+        <!-- زر SOON (بدون رابط) -->
+        <div class="link" onclick="showSoonWithSound()">
+            <img src="mincraft logo.jpg">
+            Minecraft (Soon)
+        </div>
+
+
+
+        <audio id="sound" src="mixkit-fast-double-click-on-mouse-275.wav"></audio>
+
         <script>
-            function showSoon() {
-                const s = document.getElementById("soon");
-                s.style.display = "block";
+            function showSoonWithSound() {
+                const soon = document.getElementById("soon");
+                const sound = document.getElementById("sound");
+
+                sound.pause();
+                sound.currentTime = 0;
+                sound.play();
+
+                soon.style.display = "block";
 
                 setTimeout(() => {
-                    s.style.display = "none";
+                    soon.style.display = "none";
                 }, 3000);
             }
         </script>
+        <!-- زر تشغيل اللعبة -->
+        <div class="link" onclick="startPingPong()">
+            <img src="doo7m333profl.jpg">
+            Play Ping Pong
+        </div>
+
+        <!-- Score -->
+        <div id="score">Score: 0</div>
+
+        <!-- زر الخروج -->
+        <button id="exitBtn" onclick="exitPingPong()">Exit Game</button>
+
+        <!-- اللعبة -->
+        <canvas id="game" width="320" height="200"></canvas>
 
     </div>
-    <!-- نهاية البطاقة -->
+
+    <script>
+        let gameStarted = false;
+        let score = 0;
+        let animationId;
+
+        function startPingPong() {
+            const canvas = document.getElementById("game");
+            const scoreDiv = document.getElementById("score");
+            const exitBtn = document.getElementById("exitBtn");
+
+            canvas.style.display = "block";
+            scoreDiv.style.display = "block";
+            exitBtn.style.display = "inline-block";
+
+            if (gameStarted) return;
+            gameStarted = true;
+
+            const ctx = canvas.getContext("2d");
+
+            let ballX = 160, ballY = 100;
+            let ballDX = 2, ballDY = 2;
+            let paddleX = 130;
+
+            document.onmousemove = e => {
+                const rect = canvas.getBoundingClientRect();
+                paddleX = e.clientX - rect.left - 30;
+            };
+
+            function draw() {
+                ctx.clearRect(0, 0, 320, 200);
+
+                // الكرة
+                ctx.fillStyle = "white";
+                ctx.beginPath();
+                ctx.arc(ballX, ballY, 6, 0, Math.PI * 2);
+                ctx.fill();
+
+                // المضرب
+                ctx.fillRect(paddleX, 180, 60, 8);
+
+                ballX += ballDX;
+                ballY += ballDY;
+
+                if (ballX < 6 || ballX > 314) ballDX *= -1;
+                if (ballY < 6) ballDY *= -1;
+
+                if (ballY > 174 && ballX > paddleX && ballX < paddleX + 60) {
+                    ballDY *= -1;
+                    score++;
+                    scoreDiv.innerText = "Score: " + score;
+                }
+
+                if (ballY > 200) {
+                    score = 0;
+                    scoreDiv.innerText = "Score: 0";
+                    ballX = 160;
+                    ballY = 100;
+                }
+
+                animationId = requestAnimationFrame(draw);
+            }
+
+            draw();
+        }
+
+        function exitPingPong() {
+            document.getElementById("game").style.display = "none";
+            document.getElementById("score").style.display = "none";
+            document.getElementById("exitBtn").style.display = "none";
+
+            cancelAnimationFrame(animationId);
+            gameStarted = false;
+            score = 0;
+        }
+    </script>
+
+    </div>
+
 
 </body>
 
 </html>
+
 
